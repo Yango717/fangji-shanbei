@@ -10,7 +10,7 @@
 
 ## 技术栈
 
-- Vite 6 + Vue 3 (Composition API)
+- Vite 8 + Vue 3 (Composition API)
 - Vue Router 4 (Hash 模式)
 - Pinia + localStorage（状态持久化）
 - 纯 CSS + CSS Variables（国风配色）
@@ -21,33 +21,43 @@
 
 | 文档 | 路径 | 说明 |
 |------|------|------|
-| 设计规范 | [docs/design-spec.md](docs/design-spec.md) | 配色、字体、组件样式 |
-| 技术选型 | [docs/tech-stack.md](docs/tech-stack.md) | 技术栈与版本 |
+| 需求规格 | [docs/requirements.md](docs/requirements.md) | 功能需求清单 |
+| 设计规范 | [docs/design-spec.md](docs/design-spec.md) | 配色、字体、组件样式标准 |
+| 技术选型 | [docs/tech-stack.md](docs/tech-stack.md) | 技术栈与版本说明 |
 | 开发流程 | [docs/dev-process.md](docs/dev-process.md) | 阶段定义、验证标准 |
-| 需求规格 | [docs/requirements.md](docs/requirements.md) | 功能需求 |
 | 开发日志 | [devlogs/](devlogs/) | 每日开发记录 |
 
 ---
 
 ## 工作原则
 
-1. **小步推进**：一次只做一个 Phase，完成并验证后再做下一个
-2. **保持可运行**：每个 Phase 结束后 `npm run dev` 必须正常启动
-3. **配色严格遵循**：CSS 变量定义在 `src/assets/styles/variables.css`
-4. **不得主动提交 git**：只有用户明确要求时才 commit
-5. **会话结束前**：将完成和待办事项追加写入 `devlogs/YYYY-MM-DD.md`
+1. **小步推进**：一次只做一个模块，完成并验证后再做下一个
+2. **先确认再动手**：涉及 UI 或功能变更时，先和用户确认再改代码
+3. **保持可运行**：每个 Phase 结束后 `npm run dev` 必须正常启动
+4. **配色严格遵循**：CSS 变量定义在 `src/assets/styles/variables.css`
+5. **不得主动提交 git**：只有用户明确要求时才 commit
+6. **会话结束前**：将完成和待办事项追加写入 `devlogs/YYYY-MM-DD.md`
 
 ---
 
 ## 开发阶段
 
-- **Phase 0**：项目脚手架 ✅ 进行中
-- **Phase 1**：数据层（100 首方剂 + Store）
-- **Phase 2**：着陆页
-- **Phase 3**：学习卡片页（核心）
-- **Phase 4**：错题本
-- **Phase 5**：收尾（动画 + 响应式 + Favicon）
-- **Phase 6**：项目文档
+- **Phase 0**：项目脚手架 ✅
+- **Phase 1**：数据层（100 首方剂 + Store） ✅
+- **Phase 2**：着陆页 ✅
+- **Phase 3**：学习卡片页（核心） ✅
+- **Phase 4**：错题本 ✅
+- **Phase 5**：收尾（动画 + 响应式 + Favicon） ✅
+- **Phase 6**：项目文档 ✅
+
+---
+
+## 技术债务
+
+- 会员功能（后期产品成熟后再加）
+- 学习间隔重复算法（SM-2）
+- PWA 离线支持
+- 方剂数据可扩展为从 API 加载
 
 ---
 

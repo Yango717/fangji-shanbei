@@ -16,6 +16,6 @@ import NavBar from './components/NavBar.vue'
 <style scoped>
 .main-content {
   flex: 1;
-  padding-top: 60px;
+  padding-top: 56px;
 }
 </style>

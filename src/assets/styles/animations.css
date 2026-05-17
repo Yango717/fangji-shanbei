@@ -1,46 +1,16 @@
-/* 卡片翻转动画 */
-.flashcard-container {
-  perspective: 1200px;
-}
-
-.flashcard {
-  width: 100%;
-  height: 100%;
-  position: relative;
-  transform-style: preserve-3d;
-  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.flashcard.is-flipped {
-  transform: rotateY(180deg);
-}
-
-.flashcard-face {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
-  border-radius: var(--radius-lg);
-}
-
-.flashcard-back {
-  transform: rotateY(180deg);
-}
-
 /* 页面过渡 */
 .page-enter-active {
-  animation: pageIn 0.3s ease;
+  animation: pageIn 0.25s ease;
 }
 
 .page-leave-active {
-  animation: pageOut 0.2s ease;
+  animation: pageOut 0.15s ease;
 }
 
 @keyframes pageIn {
   from {
     opacity: 0;
-    transform: translateY(12px);
+    transform: translateY(8px);
   }
   to {
     opacity: 1;
@@ -49,24 +19,19 @@
 }
 
 @keyframes pageOut {
-  from {
-    opacity: 1;
-  }
-  to {
-    opacity: 0;
-  }
+  from { opacity: 1; }
+  to { opacity: 0; }
 }
 
-/* 按钮悬浮效果 */
+/* 按钮悬浮 */
 .btn-hover {
-  transition: all 0.2s ease;
+  transition: all 0.15s ease;
 }
 
 .btn-hover:hover {
   transform: translateY(-1px);
-  box-shadow: var(--shadow-md);
 }
 
 .btn-hover:active {
-  transform: translateY(0) scale(0.96);
+  transform: translateY(0) scale(0.98);
 }
