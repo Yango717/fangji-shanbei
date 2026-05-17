@@ -51,6 +51,12 @@ defineEmits(['select'])
   background: var(--color-primary-light);
 }
 
+.option:active:not(.disabled) {
+  transform: scale(0.98);
+  border-color: var(--color-primary);
+  background: var(--color-primary-light);
+}
+
 .option.correct {
   border-color: var(--color-success);
   background: var(--color-success-light);

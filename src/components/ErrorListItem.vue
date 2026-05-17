@@ -89,24 +89,25 @@ export default {
 }
 
 .last-date {
-  font-size: 10px;
+  font-size: var(--text-xs);
   color: var(--color-text-muted);
 }
 
 .item-actions { display: flex; align-items: center; gap: var(--space-2); flex-shrink: 0; }
 .item-btn {
-  padding: var(--space-1) var(--space-4);
+  padding: var(--space-2) var(--space-4);
   border: 1px solid var(--color-primary);
   border-radius: var(--radius-sm);
   font-size: var(--text-xs);
   font-weight: 500;
   color: var(--color-primary);
   transition: all 0.15s;
+  min-height: 36px;
 }
 .item-btn:hover { background: var(--color-primary); color: #fff; }
 .item-remove {
-  width: 24px;
-  height: 24px;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
   font-size: var(--text-sm);
   color: var(--color-text-muted);

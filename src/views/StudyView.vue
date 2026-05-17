@@ -271,7 +271,7 @@ function endAndSaveErrors() {
 
 .btn-primary {
   width: 100%;
-  padding: var(--space-3);
+  padding: var(--space-4);
   background: var(--color-primary);
   color: #fff;
   border-radius: var(--radius-lg);
@@ -279,19 +279,21 @@ function endAndSaveErrors() {
   font-weight: 600;
   cursor: pointer;
   transition: background 0.15s;
+  min-height: 44px;
 }
 
 .btn-primary:hover { background: var(--color-primary-hover); }
 
 .btn-ghost {
   width: 100%;
-  padding: var(--space-3);
+  padding: var(--space-4);
   color: var(--color-text-muted);
   border-radius: var(--radius-lg);
   font-size: var(--text-base);
   font-weight: 500;
   cursor: pointer;
   transition: color 0.15s;
+  min-height: 44px;
 }
 
 .btn-ghost:hover { color: var(--color-text); }

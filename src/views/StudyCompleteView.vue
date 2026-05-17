@@ -152,6 +152,11 @@ function goAgain() {
   text-align: center;
 }
 
+@media (max-width: 480px) {
+  .complete-card { padding: var(--space-6) var(--space-4); }
+  .complete-page { padding: var(--space-3); }
+}
+
 .success-icon {
   color: var(--color-primary);
   margin-bottom: var(--space-4);
@@ -225,7 +230,7 @@ function goAgain() {
 
 .btn-primary {
   width: 100%;
-  padding: var(--space-3);
+  padding: var(--space-4);
   background: var(--color-primary);
   color: #fff;
   border-radius: var(--radius-lg);
@@ -233,13 +238,14 @@ function goAgain() {
   font-weight: 600;
   cursor: pointer;
   transition: background 0.15s;
+  min-height: 44px;
 }
 
 .btn-primary:hover { background: var(--color-primary-hover); }
 
 .btn-outline {
   width: 100%;
-  padding: var(--space-3);
+  padding: var(--space-4);
   background: transparent;
   color: var(--color-primary);
   border: 1.5px solid var(--color-primary);
@@ -248,6 +254,7 @@ function goAgain() {
   font-weight: 600;
   cursor: pointer;
   transition: all 0.15s;
+  min-height: 44px;
 }
 
 .btn-outline:hover {

@@ -98,8 +98,8 @@ function closeStats() {
 }
 
 .brand-logo {
-  width: 32px;
-  height: 32px;
+  width: 36px;
+  height: 36px;
   background: var(--color-primary);
   color: #fff;
   border-radius: 6px;
@@ -140,10 +140,13 @@ function closeStats() {
   font-weight: 600;
   color: var(--color-accent);
   background: var(--color-accent-light);
-  padding: 2px var(--space-3);
+  padding: var(--space-2) var(--space-3);
   border-radius: 999px;
   cursor: pointer;
   transition: all 0.15s;
+  min-height: 28px;
+  display: inline-flex;
+  align-items: center;
 }
 
 .streak-badge:hover,
@@ -185,13 +188,16 @@ function closeStats() {
 }
 
 .nav-link {
-  padding: var(--space-2) var(--space-4);
+  padding: var(--space-2) var(--space-3);
   border-radius: var(--radius-sm);
   font-size: var(--text-sm);
   font-weight: 500;
   color: var(--color-text-secondary);
   text-decoration: none;
   transition: all 0.15s;
+  min-height: 36px;
+  display: inline-flex;
+  align-items: center;
 }
 
 .nav-link:hover {
@@ -207,7 +213,8 @@ function closeStats() {
 
 @media (max-width: 640px) {
   .brand-name { display: none; }
-  .nav-link { padding: var(--space-2) var(--space-3); font-size: var(--text-xs); }
-  .panel-anchor { padding: 0 var(--space-4); }
+  .nav-link { padding: var(--space-2) var(--space-2); font-size: var(--text-xs); }
+  .navbar-inner { padding: 0 var(--space-3); }
+  .panel-anchor { padding: 0 var(--space-3); }
 }
 </style>

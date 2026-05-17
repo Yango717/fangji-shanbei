@@ -164,8 +164,8 @@ onUnmounted(() => window.removeEventListener('keydown', onKey))
 }
 
 .nav-btn {
-  width: 36px;
-  height: 36px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
   background: var(--color-bg-card);
   border: 1px solid var(--color-border);
@@ -192,7 +192,8 @@ onUnmounted(() => window.removeEventListener('keydown', onKey))
 .answer-row {
   display: flex;
   gap: var(--space-3);
-  width: 380px;
+  width: 100%;
+  max-width: 380px;
   margin-bottom: var(--space-5);
   transition: opacity 0.25s ease, visibility 0.25s ease, transform 0.25s ease;
 }
@@ -367,12 +368,12 @@ onUnmounted(() => window.removeEventListener('keydown', onKey))
     min-width: calc(50% - var(--space-3) / 2);
   }
 
-  .answer-row {
-    width: 320px;
-  }
-
   .card-area {
     gap: var(--space-2);
+  }
+
+  .shortcuts {
+    display: none;
   }
 }
 </style>

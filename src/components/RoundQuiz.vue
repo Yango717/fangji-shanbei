@@ -141,6 +141,12 @@ function handleNext() {
   font-size: var(--text-base);
   font-weight: 600;
   transition: all 0.15s;
+  min-height: 44px;
+  min-width: 120px;
+}
+
+.btn-next:active {
+  transform: scale(0.97);
 }
 
 .btn-next:hover {

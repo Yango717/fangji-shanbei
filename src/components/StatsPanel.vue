@@ -126,7 +126,7 @@ const masteredCount = computed(() => formulaStore.statsByStatus.known)
 }
 
 .day-label {
-  font-size: 10px;
+  font-size: var(--text-xs);
   color: var(--color-text-muted);
 }
 

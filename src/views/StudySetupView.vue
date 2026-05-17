@@ -275,13 +275,14 @@ onMounted(() => {
 }
 
 .recommend-btn {
-  padding: var(--space-2) var(--space-6);
+  padding: var(--space-3) var(--space-6);
   background: var(--color-primary);
   color: #fff;
   border-radius: var(--radius-sm);
   font-size: var(--text-sm);
   font-weight: 600;
   transition: all 0.15s;
+  min-height: 44px;
 }
 
 .recommend-btn:hover {
@@ -301,12 +302,13 @@ onMounted(() => {
 
 .tab-btn {
   flex: 1;
-  padding: var(--space-2) var(--space-4);
+  padding: var(--space-3) var(--space-3);
   border-radius: var(--radius-sm);
   font-size: var(--text-sm);
   font-weight: 500;
   color: var(--color-text-secondary);
   transition: all 0.15s;
+  min-height: 40px;
 }
 
 .tab-btn.active {
@@ -405,7 +407,7 @@ onMounted(() => {
 }
 
 .step-desc {
-  font-size: 10px;
+  font-size: var(--text-xs);
   color: var(--color-text-muted);
   white-space: nowrap;
 }
@@ -445,13 +447,14 @@ onMounted(() => {
 }
 
 .start-btn {
-  padding: var(--space-3) var(--space-6);
+  padding: var(--space-4) var(--space-6);
   background: var(--color-primary);
   color: #fff;
   border-radius: var(--radius-md);
   font-size: var(--text-sm);
   font-weight: 600;
   transition: all 0.15s;
+  min-height: 44px;
 }
 
 .start-btn:hover:not(:disabled) {
@@ -470,7 +473,18 @@ onMounted(() => {
   }
 
   .setup-page {
-    padding: var(--space-6) var(--space-4) 120px;
+    padding: var(--space-6) var(--space-3) 120px;
+  }
+
+  .start-bar {
+    padding: var(--space-3) var(--space-3);
+  }
+
+  .start-inner {
+    flex-direction: column;
+    gap: var(--space-2);
+    align-items: stretch;
+    text-align: center;
   }
 
   .timeline {
@@ -480,5 +494,8 @@ onMounted(() => {
   }
 
   .step-line { display: none; }
+
+  .step-label { white-space: normal; font-size: 11px; }
+  .step-desc { white-space: normal; }
 }
 </style>

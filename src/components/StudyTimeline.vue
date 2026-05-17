@@ -97,4 +97,9 @@ const steps = [
 .step-line.filled {
   background: var(--color-primary);
 }
+
+@media (max-width: 400px) {
+  .step-line { width: 16px; margin: 0 var(--space-1); }
+  .step-dot { width: 28px; height: 28px; }
+}
 </style>

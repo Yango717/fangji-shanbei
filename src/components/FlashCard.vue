@@ -51,6 +51,7 @@ defineEmits(['flip'])
   height: 500px;
   cursor: pointer;
   flex-shrink: 0;
+  max-width: calc(100vw - var(--space-8));
 }
 
 .card-perspective {
@@ -167,7 +168,11 @@ defineEmits(['flip'])
 }
 
 @media (max-width: 440px) {
-  .card-wrapper { width: 320px; height: 460px; }
+  .card-wrapper {
+    width: calc(100vw - 48px);
+    height: 460px;
+    max-width: 360px;
+  }
   .front-name { font-size: var(--text-3xl); }
 }
 </style>
