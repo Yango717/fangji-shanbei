@@ -1,0 +1,62 @@
+:root {
+  /* 主色 - 朱砂红 */
+  --color-primary: #8B2500;
+  --color-primary-light: #D4A574;
+  --color-primary-dark: #5C1A0A;
+
+  /* 背景 - 宣纸 */
+  --color-bg: #FAF6F0;
+  --color-bg-card: #FFFFFF;
+  --color-bg-inset: #F3EDE3;
+  --color-bg-hero: #F7F0E6;
+
+  /* 文字 - 水墨 */
+  --color-ink: #2C2C2C;
+  --color-ink-light: #5A5A5A;
+  --color-ink-faint: #9E9E9E;
+
+  /* 状态色 */
+  --color-success: #4A7C59;
+  --color-warning: #C68B2C;
+  --color-danger: #B8372D;
+
+  /* 边框 & 分割线 */
+  --color-border: #E0D8CC;
+  --color-divider: #EDE6DA;
+
+  /* 装饰 */
+  --color-gold: #C9A84C;
+  --color-seal: #C04851;
+
+  /* 字体 */
+  --font-display: 'Noto Serif SC', 'STSong', 'SimSun', serif;
+  --font-body: 'Noto Sans SC', 'Microsoft YaHei', 'PingFang SC', sans-serif;
+
+  /* 间距 */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 40px;
+  --space-2xl: 64px;
+
+  /* 圆角 */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+
+  /* 阴影 */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
+
+  /* 字号 */
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.25rem;
+  --text-2xl: 1.5rem;
+  --text-3xl: 2rem;
+  --text-4xl: 2.5rem;
+}
