@@ -130,14 +130,25 @@ onMounted(() => {
       <p class="page-subtitle">自定义本次学习范围</p>
     </header>
 
-    <!-- Daily Recommend -->
-    <div v-if="hasRecommendation" class="recommend-card">
-      <div class="recommend-header">
-        <h3 class="recommend-title">今日推荐学习</h3>
-        <span class="recommend-count">{{ recommendIds.ids.length }} 首</span>
+    <!-- Daily Recommend + Deep Learning -->
+    <div class="modules-grid">
+      <div v-if="hasRecommendation" class="recommend-card">
+        <div class="recommend-header">
+          <h3 class="recommend-title">今日推荐学习</h3>
+          <span class="recommend-count">{{ recommendIds.ids.length }} 首</span>
+        </div>
+        <p class="recommend-desc">{{ description }}</p>
+        <button class="recommend-btn" @click="startRecommended">一键开始学习</button>
       </div>
-      <p class="recommend-desc">{{ description }}</p>
-      <button class="recommend-btn" @click="startRecommended">一键开始学习</button>
+
+      <div class="recommend-card deep-card">
+        <div class="recommend-header">
+          <h3 class="recommend-title">深度学习模式</h3>
+          <span class="recommend-count deep-badge">理解证治</span>
+        </div>
+        <p class="recommend-desc">理解证治机理与配伍逻辑</p>
+        <button class="recommend-btn deep-btn" @click="router.push('/deep-study-setup')">进入深度学习</button>
+      </div>
     </div>
 
     <!-- Tabs -->
@@ -237,13 +248,36 @@ onMounted(() => {
 }
 
 /* Recommend card */
+.modules-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4);
+  margin-bottom: var(--space-6);
+}
+
 .recommend-card {
   background: var(--color-bg-card);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-sm);
   padding: var(--space-5) var(--space-6);
   border-left: 4px solid var(--color-accent);
-  margin-bottom: var(--space-6);
+}
+
+.deep-card {
+  border-left-color: var(--color-accent-dark, #0f766e);
+}
+
+.deep-badge {
+  background: var(--color-accent-light) !important;
+  color: var(--color-accent-dark) !important;
+}
+
+.deep-btn {
+  background: var(--color-accent-dark, #0f766e) !important;
+}
+
+.deep-btn:hover {
+  filter: brightness(1.1);
 }
 
 .recommend-header {
@@ -468,6 +502,10 @@ onMounted(() => {
 }
 
 @media (max-width: 640px) {
+  .modules-grid {
+    grid-template-columns: 1fr;
+  }
+
   .category-grid {
     grid-template-columns: repeat(2, 1fr);
   }
