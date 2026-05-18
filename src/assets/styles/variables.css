@@ -81,3 +81,25 @@
   /* 纹理 */
   --texture-dots: url("data:image/svg+xml,%3Csvg width='20' height='20' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='1' cy='1' r='0.5' fill='%23d0ccc4' opacity='0.3'/%3E%3C/svg%3E");
 }
+
+/* 深度学习主题覆盖 */
+html.deep-theme {
+  --color-primary: #1e293b;
+  --color-primary-light: #e2e8f0;
+  --color-primary-dark: #0f172a;
+  --color-primary-hover: #334155;
+  --color-bg: #f8fafc;
+  --color-bg-card: #ffffff;
+  --color-bg-inset: #f1f5f9;
+  --color-text: #0f172a;
+  --color-text-secondary: #475569;
+  --color-text-muted: #94a3b8;
+  --color-accent: #0f766e;
+  --color-accent-light: #f0fdfa;
+  --color-accent-dark: #115e59;
+  --color-success: #0f766e;
+  --color-success-light: #f0fdfa;
+  --color-border: #cbd5e1;
+  --color-divider: #e2e8f0;
+  --texture-dots: none;
+}

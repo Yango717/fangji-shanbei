@@ -23,6 +23,16 @@ const routes = [
     component: () => import('../views/StudyView.vue')
   },
   {
+    path: '/deep-study-setup',
+    name: 'deep-study-setup',
+    component: () => import('../views/DeepStudySetupView.vue')
+  },
+  {
+    path: '/deep-study',
+    name: 'deep-study',
+    component: () => import('../views/DeepStudyView.vue')
+  },
+  {
     path: '/study-complete',
     name: 'study-complete',
     component: () => import('../views/StudyCompleteView.vue')

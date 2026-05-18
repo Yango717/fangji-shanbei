@@ -95,15 +95,26 @@ const audiences = [
       </div>
     </section>
 
-    <!-- Daily Recommend -->
-    <section v-if="hasRecommendation" class="section recommend">
-      <div class="recommend-card">
-        <div class="recommend-header">
-          <h2 class="recommend-title">今日推荐学习</h2>
-          <span class="recommend-count">{{ recommendIds.ids.length }} 首方剂</span>
+    <!-- Daily Recommend + Deep Learning -->
+    <section class="section recommend">
+      <div class="modules-grid">
+        <div v-if="hasRecommendation" class="recommend-card">
+          <div class="recommend-header">
+            <h2 class="recommend-title">今日推荐学习</h2>
+            <span class="recommend-count">{{ recommendIds.ids.length }} 首方剂</span>
+          </div>
+          <p class="recommend-desc">{{ description }}</p>
+          <button class="btn btn-primary" @click="startRecommended">一键开始学习</button>
         </div>
-        <p class="recommend-desc">{{ description }}</p>
-        <button class="btn btn-primary" @click="startRecommended">一键开始学习</button>
+
+        <div class="recommend-card deep-card">
+          <div class="recommend-header">
+            <h2 class="recommend-title">深度学习模式</h2>
+            <span class="recommend-count" style="background: var(--color-accent-light); color: var(--color-accent-dark);">理解证治</span>
+          </div>
+          <p class="recommend-desc">理解证治机理与配伍逻辑</p>
+          <button class="btn btn-accent" @click="router.push('/deep-study-setup')">进入深度学习</button>
+        </div>
       </div>
     </section>
 
@@ -490,14 +501,46 @@ const audiences = [
 .btn-lg { padding: 16px 48px; font-size: var(--text-lg); }
 
 /* ---------- Recommend ---------- */
+.modules-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-5);
+  max-width: 800px;
+  margin: 0 auto;
+}
+
 .recommend-card {
   background: var(--color-bg-card);
   border-radius: var(--radius-xl);
   box-shadow: var(--shadow-md);
-  padding: var(--space-8) var(--space-8);
+  padding: var(--space-6);
   border-left: 4px solid var(--color-accent);
-  max-width: 480px;
-  margin: 0 auto;
+}
+
+.deep-card {
+  border-left-color: var(--color-accent-dark, #0f766e);
+}
+
+.btn-accent {
+  padding: 10px 24px;
+  background: var(--color-accent-dark, #0f766e);
+  color: #fff;
+  border-radius: var(--radius-lg);
+  font-size: var(--text-base);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.btn-accent:hover {
+  filter: brightness(1.1);
+  transform: translateY(-1px);
+}
+
+@media (max-width: 640px) {
+  .modules-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 .recommend-header {
