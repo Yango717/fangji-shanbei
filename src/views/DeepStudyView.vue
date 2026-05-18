@@ -21,13 +21,24 @@ const { recordSession } = useStudyStats()
 
 const loading = ref(true)
 const showErrorModal = ref(false)
+const toast = ref({ show: false, text: '', type: 'info' })
+let toastTimer = null
+
+function showToast(text, type = 'info') {
+  if (toastTimer) clearTimeout(toastTimer)
+  toast.value = { show: true, text, type }
+  toastTimer = setTimeout(() => { toast.value.show = false }, 2500)
+}
 
 onMounted(() => {
   if (deepStore.selectedFormulaIds.length === 0) {
     router.replace('/deep-study-setup')
     return
   }
-  setTimeout(() => { loading.value = false }, 800)
+  setTimeout(() => {
+    loading.value = false
+    showToast('已进入深度学习模式', 'info')
+  }, 800)
 })
 
 function onMemoryRead(formulaId) {
@@ -99,6 +110,14 @@ function endAndSaveErrors() {
   showErrorModal.value = false
   finishSession()
 }
+
+function exitDeepMode() {
+  deepStore.resetSession()
+  showToast('已返回普通学习模式', 'success')
+  setTimeout(() => {
+    router.replace('/study-setup')
+  }, 600)
+}
 </script>
 
 <template>
@@ -109,7 +128,13 @@ function endAndSaveErrors() {
     </div>
 
     <template v-else>
-      <div class="deep-badge">深度学习模式</div>
+      <div class="mode-bar">
+        <span class="mode-label">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          深度学习模式
+        </span>
+        <button class="exit-btn" @click="exitDeepMode">退出深度学习</button>
+      </div>
 
       <StudyTimeline :current-round="deepStore.currentRound" />
 
@@ -161,6 +186,12 @@ function endAndSaveErrors() {
           </div>
         </div>
       </div>
+
+      <Transition name="toast">
+        <div v-if="toast.show" class="toast" :class="toast.type">
+          {{ toast.text }}
+        </div>
+      </Transition>
     </template>
   </div>
 </template>
@@ -173,15 +204,82 @@ function endAndSaveErrors() {
   min-height: calc(100vh - 56px);
 }
 
-.deep-badge {
+.mode-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--color-accent-light);
+  border: 1px solid var(--color-accent);
+  border-radius: var(--radius-lg);
+  padding: var(--space-3) var(--space-4);
+  margin-bottom: var(--space-4);
+}
+
+.mode-label {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-accent-dark);
+}
+
+.exit-btn {
+  padding: var(--space-2) var(--space-4);
+  border: 1.5px solid var(--color-accent);
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--color-accent-dark);
   font-size: var(--text-xs);
   font-weight: 600;
-  color: var(--color-accent);
-  background: var(--color-accent-light);
-  padding: var(--space-1) var(--space-4);
-  border-radius: 999px;
-  text-align: center;
-  margin-bottom: var(--space-4);
+  cursor: pointer;
+  transition: all 0.15s;
+  min-height: 36px;
+  white-space: nowrap;
+}
+
+.exit-btn:hover {
+  background: var(--color-accent);
+  color: #fff;
+}
+
+.exit-btn:active {
+  transform: scale(0.97);
+}
+
+.toast {
+  position: fixed;
+  top: var(--space-6);
+  left: 50%;
+  transform: translateX(-50%);
+  padding: var(--space-3) var(--space-6);
+  border-radius: var(--radius-lg);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  z-index: 300;
+  white-space: nowrap;
+  box-shadow: var(--shadow-lg);
+}
+
+.toast.info {
+  background: var(--color-accent);
+  color: #fff;
+}
+
+.toast.success {
+  background: var(--color-success);
+  color: #fff;
+}
+
+.toast-enter-active,
+.toast-leave-active {
+  transition: all 0.3s ease;
+}
+
+.toast-enter-from,
+.toast-leave-to {
+  opacity: 0;
+  transform: translateX(-50%) translateY(-12px);
 }
 
 .loading {
@@ -304,5 +402,22 @@ function endAndSaveErrors() {
 
 @media (max-width: 480px) {
   .study-page { padding: var(--space-3); }
+
+  .mode-bar {
+    flex-direction: column;
+    gap: var(--space-2);
+    padding: var(--space-3);
+  }
+
+  .exit-btn {
+    width: 100%;
+    min-height: 44px;
+    font-size: var(--text-sm);
+  }
+
+  .toast {
+    font-size: var(--text-xs);
+    padding: var(--space-2) var(--space-4);
+  }
 }
 </style>
