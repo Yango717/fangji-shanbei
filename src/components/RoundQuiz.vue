@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, watch } from 'vue'
 import QuizOption from './QuizOption.vue'
 
 const props = defineProps({
@@ -14,6 +14,11 @@ const answered = ref(false)
 
 const currentQuestion = computed(() => props.questions[props.currentIndex])
 const isCorrect = computed(() => selectedIndex.value === currentQuestion.value?.correctIndex)
+
+watch(() => props.currentIndex, () => {
+  selectedIndex.value = null
+  answered.value = false
+})
 
 function getOptionState(optIndex) {
   if (!answered.value) return 'default'

@@ -46,9 +46,11 @@ defineEmits(['select'])
   gap: var(--space-3);
 }
 
-.option:hover:not(.disabled) {
-  border-color: var(--color-primary);
-  background: var(--color-primary-light);
+@media (hover: hover) {
+  .option:hover:not(.disabled) {
+    border-color: var(--color-primary);
+    background: var(--color-primary-light);
+  }
 }
 
 .option:active:not(.disabled) {
