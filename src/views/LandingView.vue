@@ -113,7 +113,7 @@ const audiences = [
             <span class="recommend-count" style="background: var(--color-accent-light); color: var(--color-accent-dark);">理解证治</span>
           </div>
           <p class="recommend-desc">理解证治机理与配伍逻辑</p>
-          <button class="btn btn-accent" @click="router.push('/deep-study-setup')">进入深度学习</button>
+          <button class="btn btn-accent" @click="router.push('/study-setup?mode=deep')">进入深度学习</button>
         </div>
       </div>
     </section>

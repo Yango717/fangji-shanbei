@@ -1,6 +1,6 @@
 <script setup>
-import { computed } from 'vue'
-import DeepFlashCard from './DeepFlashCard.vue'
+import { ref, computed, watch } from 'vue'
+import DeepTarotStack from './DeepTarotStack.vue'
 
 const props = defineProps({
   formulas: { type: Array, required: true },
@@ -10,11 +10,13 @@ const props = defineProps({
 const emit = defineEmits(['read', 'next'])
 
 const currentFormula = computed(() => props.formulas[props.currentIndex])
-const isFlipped = computed(() => props.readIds.has(currentFormula.value?.id))
 const isLast = computed(() => props.currentIndex >= props.formulas.length - 1)
 
-function handleFlip() {
-  if (!isFlipped.value && currentFormula.value) {
+const stackCompleted = ref(false)
+
+function onStackComplete() {
+  stackCompleted.value = true
+  if (currentFormula.value) {
     emit('read', currentFormula.value.id)
   }
 }
@@ -22,26 +24,28 @@ function handleFlip() {
 function handleNext() {
   emit('next')
 }
+
+watch(() => props.currentIndex, () => {
+  stackCompleted.value = false
+})
 </script>
 
 <template>
   <div class="round-memory">
     <div class="card-area">
-      <DeepFlashCard
+      <DeepTarotStack
         v-if="currentFormula"
+        :key="currentFormula.id"
         :formula="currentFormula"
-        :flipped="isFlipped"
-        @flip="handleFlip"
+        @complete="onStackComplete"
       />
     </div>
 
     <div class="memory-actions">
-      <template v-if="isFlipped">
-        <button class="btn-next" @click="handleNext">
-          {{ isLast ? '完成记忆，进入测试' : '已阅读，下一张' }}
-        </button>
-      </template>
-      <p v-else class="hint">点击卡片查看深度内容</p>
+      <button v-if="stackCompleted" class="btn-next" @click="handleNext">
+        {{ isLast ? '完成记忆，进入测试' : '已阅读，下一首' }}
+      </button>
+      <p v-else class="hint">翻转全部卡片以继续</p>
     </div>
 
     <div class="memory-progress">
@@ -61,6 +65,7 @@ function handleNext() {
 .card-area {
   display: flex;
   justify-content: center;
+  width: 100%;
 }
 
 .memory-actions {

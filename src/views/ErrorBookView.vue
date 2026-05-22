@@ -1,5 +1,5 @@
 <script setup>
-import { computed } from 'vue'
+import { ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
 import { useErrorBookStore } from '../stores/errorBook'
 import { useFormulaStore } from '../stores/formula'
@@ -11,6 +11,8 @@ const errorStore = useErrorBookStore()
 const formulaStore = useFormulaStore()
 const sessionStore = useStudySessionStore()
 
+const activeErrorTab = ref('normal')
+
 const allItems = computed(() => {
   return errorStore.sortedErrors.map(err => {
     const formula = formulaStore.allFormulas.find(f => f.id === err.id)
@@ -19,16 +21,23 @@ const allItems = computed(() => {
   }).filter(item => item.formula)
 })
 
+const filteredItems = computed(() => {
+  if (activeErrorTab.value === 'deep') {
+    return allItems.value.filter(i => i.type === 'deep')
+  }
+  return allItems.value.filter(i => i.type !== 'deep')
+})
+
 const highFreqItems = computed(() =>
-  allItems.value.filter(i => !i.mastered && i.count >= 3)
+  filteredItems.value.filter(i => !i.mastered && i.count >= 3)
 )
 
 const normalItems = computed(() =>
-  allItems.value.filter(i => !i.mastered && i.count < 3)
+  filteredItems.value.filter(i => !i.mastered && i.count < 3)
 )
 
 const masteredItems = computed(() =>
-  allItems.value.filter(i => i.mastered)
+  filteredItems.value.filter(i => i.mastered)
 )
 
 const totalErrors = computed(() =>
@@ -62,16 +71,32 @@ function handleClear() {
     <header class="page-header">
       <div>
         <h1 class="page-title">错题统计</h1>
-        <p class="page-subtitle">{{ allItems.length > 0 ? `共 ${allItems.length} 首方剂` : '暂无错题记录' }}</p>
+        <p class="page-subtitle">{{ filteredItems.length > 0 ? `共 ${filteredItems.length} 首方剂` : '暂无错题记录' }}</p>
       </div>
-      <div v-if="allItems.length > 0" class="header-actions">
+      <div v-if="filteredItems.length > 0" class="header-actions">
         <button class="btn-outline" @click="handlePractice">全部复习</button>
         <button class="btn-ghost" @click="handleClear">清空</button>
       </div>
     </header>
 
+    <!-- Tabs -->
+    <div v-if="allItems.length > 0" class="error-tabs">
+      <button
+        :class="['error-tab', { active: activeErrorTab === 'normal' }]"
+        @click="activeErrorTab = 'normal'"
+      >
+        普通学习 ({{ errorStore.normalErrorCount }})
+      </button>
+      <button
+        :class="['error-tab', { active: activeErrorTab === 'deep' }]"
+        @click="activeErrorTab = 'deep'"
+      >
+        深度学习 ({{ errorStore.deepErrorCount }})
+      </button>
+    </div>
+
     <!-- Dashboard -->
-    <div v-if="allItems.length > 0" class="dashboard">
+    <div v-if="filteredItems.length > 0" class="dashboard">
       <div class="stat-card">
         <span class="stat-label">待复习</span>
         <span class="stat-value stat-danger">{{ highFreqItems.length + normalItems.length }}</span>
@@ -96,7 +121,7 @@ function handleClear() {
     </button>
 
     <!-- Empty -->
-    <div v-if="allItems.length === 0" class="empty">
+    <div v-if="filteredItems.length === 0" class="empty">
       <div class="empty-icon">
         <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
       </div>
@@ -201,6 +226,36 @@ function handleClear() {
 .header-actions {
   display: flex;
   gap: var(--space-2);
+}
+
+/* --- Tabs --- */
+.error-tabs {
+  display: flex;
+  gap: var(--space-2);
+  margin-bottom: var(--space-5);
+  border-bottom: 2px solid var(--color-border);
+  padding-bottom: 0;
+}
+
+.error-tab {
+  padding: var(--space-2) var(--space-5);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  color: var(--color-text-muted);
+  border-bottom: 2px solid transparent;
+  margin-bottom: -2px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.error-tab:hover {
+  color: var(--color-text);
+}
+
+.error-tab.active {
+  color: var(--color-primary);
+  border-bottom-color: var(--color-primary);
+  font-weight: 600;
 }
 
 /* --- Dashboard --- */

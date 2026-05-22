@@ -6,6 +6,7 @@ import formulas from '../data/formulas'
 export const useFormulaStore = defineStore('formula', () => {
   const allFormulas = formulas
   const progress = useLocalStorage('fj-progress', {})
+  const deepProgress = useLocalStorage('fj-deep-progress', {})
   const currentIndex = ref(0)
   const sessionMode = ref('all')
 
@@ -29,9 +30,36 @@ export const useFormulaStore = defineStore('formula', () => {
     return { known, vague, unknown }
   })
 
+  const deepLearnedCount = computed(() => {
+    return Object.keys(deepProgress.value).length
+  })
+
+  const deepCompletionPercent = computed(() => {
+    return Math.round((deepLearnedCount.value / total) * 100)
+  })
+
+  const deepStatsByStatus = computed(() => {
+    let known = 0, vague = 0, unknown = 0
+    for (const entry of Object.values(deepProgress.value)) {
+      if (entry.status === 'known') known++
+      else if (entry.status === 'vague') vague++
+      else unknown++
+    }
+    return { known, vague, unknown }
+  })
+
   function markFormula(id, status) {
     const existing = progress.value[id]
     progress.value[id] = {
+      status,
+      reviewCount: existing ? existing.reviewCount + 1 : 1,
+      lastReviewed: new Date().toISOString()
+    }
+  }
+
+  function markDeepFormula(id, status) {
+    const existing = deepProgress.value[id]
+    deepProgress.value[id] = {
       status,
       reviewCount: existing ? existing.reviewCount + 1 : 1,
       lastReviewed: new Date().toISOString()
@@ -62,13 +90,18 @@ export const useFormulaStore = defineStore('formula', () => {
   return {
     allFormulas,
     progress,
+    deepProgress,
     currentIndex,
     sessionMode,
     total,
     learnedCount,
     completionPercent,
     statsByStatus,
+    deepLearnedCount,
+    deepCompletionPercent,
+    deepStatsByStatus,
     markFormula,
+    markDeepFormula,
     nextCard,
     prevCard,
     resetSession

@@ -1,9 +1,10 @@
 <script setup>
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { useFormulaStore } from '../stores/formula'
 import { useErrorBookStore } from '../stores/errorBook'
 import { useStudySessionStore } from '../stores/studySession'
+import { useDeepStudySessionStore } from '../stores/deepStudySession'
 import { useDailyRecommend } from '../composables/useDailyRecommend'
 import { categories } from '../data/categories.js'
 import CategoryCard from '../components/CategoryCard.vue'
@@ -14,7 +15,10 @@ const route = useRoute()
 const formulaStore = useFormulaStore()
 const errorStore = useErrorBookStore()
 const sessionStore = useStudySessionStore()
+const deepStore = useDeepStudySessionStore()
 const { recommendIds, hasRecommendation, description } = useDailyRecommend()
+
+const deepMode = computed(() => route.query.mode === 'deep')
 
 const activeTab = ref('category')
 const selectedCategories = ref(new Set())
@@ -27,9 +31,10 @@ const tabs = [
 ]
 
 const categoryCards = computed(() => {
+  const progressSource = deepMode.value ? formulaStore.deepProgress : formulaStore.progress
   return categories.map(cat => {
     const knownInCategory = cat.formulaIds.filter(
-      id => formulaStore.progress[id]?.status === 'known'
+      id => progressSource[id]?.status === 'known'
     ).length
     return {
       name: cat.name,
@@ -95,8 +100,13 @@ function startStudy() {
 
   if (ids.length === 0) return
 
-  sessionStore.initSession(ids, mode)
-  router.push('/study')
+  if (deepMode.value) {
+    deepStore.initSession(ids, mode)
+    router.push('/deep-study')
+  } else {
+    sessionStore.initSession(ids, mode)
+    router.push('/study')
+  }
 }
 
 function startRecommended() {
@@ -105,14 +115,27 @@ function startRecommended() {
   router.push('/study')
 }
 
-const rounds = [
-  { num: 1, label: '记忆学习', desc: '查看方歌、组成、功效' },
-  { num: 2, label: '选择题测试', desc: '根据方剂名选正确答案' },
-  { num: 3, label: '随机强化', desc: '打乱顺序再次测试' },
-  { num: 4, label: '错题强化', desc: '仅重做错误方剂' }
-]
+const rounds = computed(() => {
+  if (deepMode.value) {
+    return [
+      { num: 1, label: '深度记忆', desc: '查看条文、机理、方解、配伍' },
+      { num: 2, label: '选择测试', desc: '根据方剂名选正确答案' },
+      { num: 3, label: '随机强化', desc: '打乱顺序再次测试' },
+      { num: 4, label: '错题强化', desc: '仅重做错误方剂' }
+    ]
+  }
+  return [
+    { num: 1, label: '记忆学习', desc: '查看方歌、组成、功效' },
+    { num: 2, label: '选择题测试', desc: '根据方剂名选正确答案' },
+    { num: 3, label: '随机强化', desc: '打乱顺序再次测试' },
+    { num: 4, label: '错题强化', desc: '仅重做错误方剂' }
+  ]
+})
 
 onMounted(() => {
+  if (deepMode.value) {
+    document.documentElement.classList.add('deep-theme')
+  }
   if (route.query.mode === 'error-book') {
     const errorIds = errorStore.sortedErrors.map(e => e.id)
     if (errorIds.length > 0) {
@@ -121,17 +144,23 @@ onMounted(() => {
     }
   }
 })
+
+onBeforeUnmount(() => {
+  if (deepMode.value) {
+    document.documentElement.classList.remove('deep-theme')
+  }
+})
 </script>
 
 <template>
   <div class="setup-page">
     <header class="page-header">
-      <h1 class="page-title">选择学习内容</h1>
-      <p class="page-subtitle">自定义本次学习范围</p>
+      <h1 class="page-title">{{ deepMode ? '深度学习模式' : '选择学习内容' }}</h1>
+      <p class="page-subtitle">{{ deepMode ? '自定义学习范围，理解证治机理与配伍逻辑' : '自定义本次学习范围' }}</p>
     </header>
 
-    <!-- Daily Recommend + Deep Learning -->
-    <div class="modules-grid">
+    <!-- Daily Recommend + Deep Learning (hidden in deep mode) -->
+    <div v-if="!deepMode" class="modules-grid">
       <div v-if="hasRecommendation" class="recommend-card">
         <div class="recommend-header">
           <h3 class="recommend-title">今日推荐学习</h3>
@@ -147,7 +176,7 @@ onMounted(() => {
           <span class="recommend-count deep-badge">理解证治</span>
         </div>
         <p class="recommend-desc">理解证治机理与配伍逻辑</p>
-        <button class="recommend-btn deep-btn" @click="router.push('/deep-study-setup')">进入深度学习</button>
+        <button class="recommend-btn deep-btn" @click="router.push('/study-setup?mode=deep')">进入深度学习</button>
       </div>
     </div>
 
@@ -215,7 +244,7 @@ onMounted(() => {
       <div class="start-inner">
         <span class="start-count">已选择：{{ selectedCount }} 首方剂</span>
         <button class="start-btn" :disabled="!canStart" @click="startStudy">
-          开始本次学习（{{ selectedCount }}首）
+          {{ deepMode ? '开始深度学习' : '开始本次学习' }}（{{ selectedCount }}首）
         </button>
       </div>
     </div>

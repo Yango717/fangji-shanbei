@@ -1,11 +1,13 @@
 import { shuffle } from './shuffle'
 
-const questionTypes = ['pathogenesis', 'hierarchy', 'compatibility']
+const questionTypes = ['article', 'pathogenesis', 'formulaExplanation', 'compatibility', 'clinicalApplication']
 
 const questionLabels = {
+  article: '条文',
   pathogenesis: '证治机理',
-  hierarchy: '君臣佐使',
-  compatibility: '配伍意义'
+  formulaExplanation: '方解',
+  compatibility: '配伍意义',
+  clinicalApplication: '临床运用'
 }
 
 function getField(formula, type) {

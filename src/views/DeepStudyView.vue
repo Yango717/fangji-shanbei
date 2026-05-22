@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, onBeforeUnmount } from 'vue'
 import { useRouter } from 'vue-router'
 import { useDeepStudySessionStore } from '../stores/deepStudySession'
 import { useErrorBookStore } from '../stores/errorBook'
@@ -31,6 +31,7 @@ function showToast(text, type = 'info') {
 }
 
 onMounted(() => {
+  document.documentElement.classList.add('deep-theme')
   if (deepStore.selectedFormulaIds.length === 0) {
     router.replace('/deep-study-setup')
     return
@@ -39,6 +40,10 @@ onMounted(() => {
     loading.value = false
     showToast('已进入深度学习模式', 'info')
   }, 800)
+})
+
+onBeforeUnmount(() => {
+  document.documentElement.classList.remove('deep-theme')
 })
 
 function onMemoryRead(formulaId) {
@@ -90,11 +95,11 @@ function finishSession() {
 
   deepStore.selectedFormulaIds.forEach(id => {
     const stillWrong = deepStore.wrongAnswerIds.has(id)
-    formulaStore.markFormula(id, stillWrong ? 'unknown' : 'known')
+    formulaStore.markDeepFormula(id, stillWrong ? 'unknown' : 'known')
   })
 
   deepStore.wrongAnswerIds.forEach(id => {
-    errorStore.recordError(id, 'unknown')
+    errorStore.recordError(id, 'unknown', 'deep')
   })
 
   deepStore.resetSession()

@@ -33,7 +33,7 @@ export const useDeepStudySessionStore = defineStore('deepStudySession', () => {
   const endTime = ref(null)
 
   const currentRoundLabel = computed(() => {
-    const labels = ['', '深度记忆', '机理测试', '强化巩固', '错题强化']
+    const labels = ['', '深度记忆', '选择测试', '随机强化', '错题强化']
     return labels[currentRound.value] || ''
   })
 
@@ -79,8 +79,6 @@ export const useDeepStudySessionStore = defineStore('deepStudySession', () => {
   })
 
   function initSession(formulaIds, mode) {
-    document.documentElement.classList.add('deep-theme')
-
     selectedFormulaIds.value = formulaIds
     sessionMode.value = mode
     currentRound.value = 1
@@ -167,8 +165,6 @@ export const useDeepStudySessionStore = defineStore('deepStudySession', () => {
   }
 
   function resetSession() {
-    document.documentElement.classList.remove('deep-theme')
-
     selectedFormulaIds.value = []
     sessionMode.value = 'recommend'
     currentRound.value = 1

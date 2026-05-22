@@ -24,8 +24,7 @@ const routes = [
   },
   {
     path: '/deep-study-setup',
-    name: 'deep-study-setup',
-    component: () => import('../views/DeepStudySetupView.vue')
+    redirect: '/study-setup?mode=deep'
   },
   {
     path: '/deep-study',
