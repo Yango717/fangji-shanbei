@@ -35,7 +35,7 @@ defineEmits(['flip'])
             </div>
             <div class="back-divider"></div>
             <div class="back-block mnemonic-block">
-              <span class="back-label">口诀</span>
+              <span class="back-label">方歌</span>
               <p class="back-text mnemonic-text">{{ formula?.mnemonic }}</p>
             </div>
           </div>

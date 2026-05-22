@@ -106,7 +106,7 @@ function startRecommended() {
 }
 
 const rounds = [
-  { num: 1, label: '记忆学习', desc: '查看歌诀、组成、功效' },
+  { num: 1, label: '记忆学习', desc: '查看方歌、组成、功效' },
   { num: 2, label: '选择题测试', desc: '根据方剂名选正确答案' },
   { num: 3, label: '随机强化', desc: '打乱顺序再次测试' },
   { num: 4, label: '错题强化', desc: '仅重做错误方剂' }

@@ -3,7 +3,7 @@ import { shuffle } from './shuffle'
 const questionTypes = ['mnemonic', 'composition', 'efficacy', 'indications']
 
 const questionLabels = {
-  mnemonic: '歌诀',
+  mnemonic: '方歌',
   composition: '组成',
   efficacy: '功效',
   indications: '主治'
@@ -65,7 +65,7 @@ export function generateQuestion(formula, allFormulas) {
 }
 
 export function generateQuestions(formulas, allFormulas) {
-  // Each formula gets all 4 question types (歌诀、组成、功效、主治)
+  // Each formula gets all 4 question types (方歌、组成、功效、主治)
   const questions = []
   for (const f of formulas) {
     for (const type of questionTypes) {
