@@ -278,13 +278,20 @@ const renderedContent = computed(() => renderMarkdown(props.content))
 
 @media (max-width: 400px) {
   .tarot-card {
-    width: 230px;
-    height: 300px;
+    width: 220px;
+    height: 280px;
   }
-  .tarot-num { font-size: 2rem; }
-  .tarot-label { font-size: var(--text-lg); }
-  .tarot-back-label { font-size: var(--text-sm); padding: var(--space-3) var(--space-4) 0; }
-  .tarot-back-body { padding: var(--space-2) var(--space-4) var(--space-4); }
-  .tarot-back-content { font-size: 0.75rem; line-height: 1.7; }
+  .tarot-num { font-size: 1.6rem; }
+  .tarot-label { font-size: var(--text-base); }
+  .tarot-hint { font-size: 0.65rem; }
+  .tarot-back-label { font-size: var(--text-sm); padding: var(--space-2) var(--space-3) 0; }
+  .tarot-back-body { padding: var(--space-2) var(--space-3) var(--space-3); }
+  .tarot-back-content { font-size: 0.7rem; line-height: 1.6; }
+  .tarot-back-content :deep(table) { font-size: 0.65rem; }
+  .tarot-back-content :deep(th), .tarot-back-content :deep(td) { padding: 2px 4px; }
+  .tarot-back-content :deep(.role-card) { padding: 6px 8px; }
+  .tarot-back-content :deep(.role-badge) { font-size: 9px; padding: 0 5px; }
+  .tarot-back-content :deep(.role-drug) { font-size: 0.75rem; }
+  .tarot-back-content :deep(.role-desc) { font-size: 0.65rem; line-height: 1.4; }
 }
 </style>

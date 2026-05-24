@@ -62,6 +62,12 @@ watch(() => props.currentIndex, () => {
   gap: var(--space-5);
 }
 
+@media (max-width: 400px) {
+  .round-memory { gap: var(--space-3); }
+  .btn-next { font-size: var(--text-sm); padding: var(--space-2) var(--space-5); }
+  .hint { font-size: var(--text-xs); }
+}
+
 .card-area {
   display: flex;
   justify-content: center;

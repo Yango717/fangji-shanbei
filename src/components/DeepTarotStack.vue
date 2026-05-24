@@ -190,16 +190,20 @@ watch(() => props.formula?.id, () => {
 
 @media (max-width: 400px) {
   .stack-cards-area {
-    width: 260px;
-    height: 340px;
+    width: 240px;
+    height: 310px;
+    overflow: hidden;
   }
-  .stack-card-slot:nth-child(1) { --fan-rotate: -9deg; }
-  .stack-card-slot:nth-child(2) { --fan-rotate: -4.5deg; }
+  .stack-card-slot:nth-child(1) { --fan-rotate: -7deg; }
+  .stack-card-slot:nth-child(2) { --fan-rotate: -3.5deg; }
   .stack-card-slot:nth-child(3) { --fan-rotate: 0deg; }
-  .stack-card-slot:nth-child(4) { --fan-rotate: 4.5deg; }
-  .stack-card-slot:nth-child(5) { --fan-rotate: 9deg; }
-  .stack-name { font-size: var(--text-xl); }
-  .stack-header { margin-bottom: 0; }
-  .tarot-stack { gap: var(--space-3); }
+  .stack-card-slot:nth-child(4) { --fan-rotate: 3.5deg; }
+  .stack-card-slot:nth-child(5) { --fan-rotate: 7deg; }
+  .stack-name { font-size: var(--text-lg); }
+  .stack-category { font-size: 0.65rem; padding: 1px 8px; }
+  .tarot-stack { gap: var(--space-2); }
+  .stack-card-slot.is-popped {
+    transform: translateX(-50%) rotate(0deg) scale(1.03) translateY(-10px) !important;
+  }
 }
 </style>
