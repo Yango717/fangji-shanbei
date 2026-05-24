@@ -3,6 +3,7 @@ import { ref, computed } from 'vue'
 import { useFormulaStore } from './formula'
 import { shuffle } from '../composables/shuffle'
 import { generateDeepQuestions } from '../composables/useDeepQuizGenerator'
+import { generateReinforcementQuestions } from '../composables/useDeepReinforcementGenerator'
 
 export const useDeepStudySessionStore = defineStore('deepStudySession', () => {
   const formulaStore = useFormulaStore()
@@ -113,7 +114,7 @@ export const useDeepStudySessionStore = defineStore('deepStudySession', () => {
     currentRound.value = 3
     currentIndex.value = 0
     const shuffledFormulas = shuffle([...memoryFormulas.value])
-    reinforcementQuestions.value = generateDeepQuestions(shuffledFormulas, formulaStore.allFormulas)
+    reinforcementQuestions.value = generateReinforcementQuestions(shuffledFormulas, formulaStore.allFormulas)
   }
 
   function startRound4() {

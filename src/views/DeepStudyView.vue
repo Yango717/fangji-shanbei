@@ -10,6 +10,7 @@ import StudyTimeline from '../components/StudyTimeline.vue'
 import ProgressBar from '../components/ProgressBar.vue'
 import RoundDeepMemory from '../components/RoundDeepMemory.vue'
 import RoundQuiz from '../components/RoundQuiz.vue'
+import RoundDeepReinforcement from '../components/RoundDeepReinforcement.vue'
 import RoundErrorReview from '../components/RoundErrorReview.vue'
 
 const router = useRouter()
@@ -164,10 +165,18 @@ function exitDeepMode() {
         />
 
         <RoundQuiz
-          v-if="deepStore.currentRound === 2 || deepStore.currentRound === 3"
+          v-if="deepStore.currentRound === 2"
           :questions="deepStore.currentRoundQuestions"
           :current-index="deepStore.currentIndex"
           :round-label="deepStore.currentRoundLabel"
+          @answer="onQuizAnswer"
+          @next="onQuizNext"
+        />
+
+        <RoundDeepReinforcement
+          v-if="deepStore.currentRound === 3"
+          :questions="deepStore.currentRoundQuestions"
+          :current-index="deepStore.currentIndex"
           @answer="onQuizAnswer"
           @next="onQuizNext"
         />
