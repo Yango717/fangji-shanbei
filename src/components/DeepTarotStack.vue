@@ -190,7 +190,16 @@ watch(() => props.formula?.id, () => {
 
 @media (max-width: 400px) {
   .stack-cards-area {
-    height: 390px;
+    width: 260px;
+    height: 340px;
   }
+  .stack-card-slot:nth-child(1) { --fan-rotate: -9deg; }
+  .stack-card-slot:nth-child(2) { --fan-rotate: -4.5deg; }
+  .stack-card-slot:nth-child(3) { --fan-rotate: 0deg; }
+  .stack-card-slot:nth-child(4) { --fan-rotate: 4.5deg; }
+  .stack-card-slot:nth-child(5) { --fan-rotate: 9deg; }
+  .stack-name { font-size: var(--text-xl); }
+  .stack-header { margin-bottom: 0; }
+  .tarot-stack { gap: var(--space-3); }
 }
 </style>

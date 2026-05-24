@@ -39,14 +39,19 @@ function parseCompatibilityItems(md) {
   return result
 }
 
+function isLabelTerm(t) {
+  return /^(辨证要点|禁忌|禁忌证|注意事项|使用禁忌|服用注意|用法注意|注意|附方|鉴别|加减|原著加减|扩展运用|服法要点|【附方】|【鉴别】)$/.test(t)
+      || /^与.+鉴别/.test(t)
+      || /^【.+】$/.test(t)
+}
+
 function parseBoldTerms(md) {
   const result = []
   const re = /\*\*(.+?)\*\*/g
   let m
   while ((m = re.exec(md)) !== null) {
     const term = m[1].trim()
-    // Skip very long "terms" (>20 chars, likely not a keyword)
-    if (term.length > 2 && term.length <= 20 && !term.includes('|')) {
+    if (term.length > 2 && term.length <= 20 && !term.includes('|') && !isLabelTerm(term)) {
       result.push(term)
     }
   }

@@ -278,8 +278,13 @@ const renderedContent = computed(() => renderMarkdown(props.content))
 
 @media (max-width: 400px) {
   .tarot-card {
-    width: 260px;
-    height: 360px;
+    width: 230px;
+    height: 300px;
   }
+  .tarot-num { font-size: 2rem; }
+  .tarot-label { font-size: var(--text-lg); }
+  .tarot-back-label { font-size: var(--text-sm); padding: var(--space-3) var(--space-4) 0; }
+  .tarot-back-body { padding: var(--space-2) var(--space-4) var(--space-4); }
+  .tarot-back-content { font-size: 0.75rem; line-height: 1.7; }
 }
 </style>

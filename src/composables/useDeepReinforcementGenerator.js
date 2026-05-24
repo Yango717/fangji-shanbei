@@ -22,13 +22,19 @@ function parseRoleTable(md) {
   return result
 }
 
+function isLabelTerm(t) {
+  return /^(辨证要点|禁忌|禁忌证|注意事项|使用禁忌|服用注意|用法注意|注意|附方|鉴别|加减|原著加减|扩展运用|服法要点|【附方】|【鉴别】)$/.test(t)
+      || /^与.+鉴别/.test(t)
+      || /^【.+】$/.test(t)
+}
+
 function parseBoldTerms(md) {
   const terms = []
   const re = /\*\*(.+?)\*\*/g
   let m
   while ((m = re.exec(md)) !== null) {
     const t = m[1].trim()
-    if (t.length >= 3 && t.length <= 22 && !t.includes('|')) terms.push(t)
+    if (t.length >= 3 && t.length <= 22 && !t.includes('|') && !isLabelTerm(t)) terms.push(t)
   }
   return [...new Set(terms)]
 }
